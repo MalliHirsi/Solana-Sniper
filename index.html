@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solana Sniper — Research Terminal</title>
+  <meta name="description" content="Halal-first Solana token research terminal. Identify early opportunities, filter scams, and screen for halal compliance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ────────────────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-logo">
+      <div class="logo-mark">S</div>
+      <div>
+        <div class="header-title">Solana Sniper</div>
+        <div class="header-subtitle">Research Terminal</div>
+      </div>
+    </div>
+    <span class="header-chain">Solana Only</span>
+    <span class="header-notice">Research tool only &nbsp;·&nbsp; Not financial advice</span>
+  </header>
+
+  <!-- ── Stats bar ──────────────────────────────────────────────────────────── -->
+  <div class="stats-bar" role="status" aria-label="Portfolio summary">
+    <div id="stats-bar" style="display:contents"></div>
+  </div>
+
+  <!-- ── Controls bar ───────────────────────────────────────────────────────── -->
+  <div class="controls-bar" role="toolbar" aria-label="Filter controls">
+    <div class="control-group">
+      <label class="control-label" for="search-input">Search</label>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Name, symbol, address, narrative…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search tokens"
+      />
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="filter-halal">Halal</label>
+      <select id="filter-halal" aria-label="Filter by halal status">
+        <option value="all">All</option>
+        <option value="PASS">Halal Likely</option>
+        <option value="CAUTION">Caution</option>
+        <option value="REJECT">Excluded</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="filter-risk">Risk</label>
+      <select id="filter-risk" aria-label="Filter by risk level">
+        <option value="all">All</option>
+        <option value="low">Low Risk</option>
+        <option value="medium">Medium Risk</option>
+        <option value="high">High / Extreme</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="filter-sort">Sort</label>
+      <select id="filter-sort" aria-label="Sort tokens by">
+        <option value="alpha">Alpha Score</option>
+        <option value="risk">Lowest Risk</option>
+        <option value="liquidity">Liquidity</option>
+        <option value="mcap">Market Cap</option>
+        <option value="volume">Volume 24h</option>
+        <option value="age">Newest First</option>
+        <option value="change1h">1h Change</option>
+      </select>
+    </div>
+
+    <label class="toggle-label" for="toggle-excluded">
+      <input type="checkbox" id="toggle-excluded" aria-label="Hide haram/excluded tokens" />
+      Hide Excluded
+    </label>
+
+    <span class="result-count" id="result-count" aria-live="polite"></span>
+  </div>
+
+  <!-- ── Error banner (shown only on load failure) ─────────────────────────── -->
+  <div id="error-banner" style="display:none" role="alert" aria-live="assertive"></div>
+
+  <!-- ── Main body ──────────────────────────────────────────────────────────── -->
+  <div class="app-body">
+
+    <!-- Token table pane -->
+    <div class="table-pane" role="main">
+
+      <div id="loading-state" role="status">
+        <div class="spinner" aria-hidden="true"></div>
+        Loading token data…
+      </div>
+
+      <table class="token-table" aria-label="Solana token list">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Token</th>
+            <th>Halal</th>
+            <th>Risk</th>
+            <th>Alpha</th>
+            <th>Price</th>
+            <th>Mkt Cap</th>
+            <th>Liquidity</th>
+            <th>1h %</th>
+            <th>24h %</th>
+            <th>Age</th>
+            <th>Links</th>
+          </tr>
+        </thead>
+        <tbody id="token-tbody">
+          <tr>
+            <td colspan="12" class="empty-state">Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Detail panel -->
+    <aside
+      id="detail-panel"
+      class="detail-panel"
+      role="complementary"
+      aria-label="Token details"
+      aria-hidden="true"
+    >
+      <div class="panel-close">
+        <button id="panel-close" class="close-btn" aria-label="Close detail panel">✕</button>
+      </div>
+      <div id="detail-content" aria-live="polite"></div>
+    </aside>
+
+  </div>
+
+  <!-- ── Disclaimer ────────────────────────────────────────────────────────── -->
+  <footer class="disclaimer" role="contentinfo">
+    This is a research tool only. Nothing here is financial advice. All scores are heuristic estimates — always do your own research.
+    Halal assessment is automated and not a fatwa — consult a qualified scholar for religious rulings.
+    On-chain data may be delayed or incomplete.
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
